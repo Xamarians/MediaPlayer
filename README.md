@@ -15,7 +15,7 @@ You can integrate video player in you Xamarin Form application using following c
              xmlns:xamarians="clr-namespace:Xamarians.MediaPlayer;assembly=Xamarians.MediaPlayer"
              x:Class="App1.MainPage">
 
-    <xamarians:VideoPlayer Source="http://0.s3.envato.com/h264-video-previews/80fad324-9db4-11e3-bf3d-0050569255a8/490527.mp4" AutoPlay="True">
+    <xamarians:VideoPlayer Source="<VIDEO URL>" AutoPlay="True">
         
     </xamarians:VideoPlayer>
 

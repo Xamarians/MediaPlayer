@@ -8,6 +8,7 @@ You can integrate video player in you Xamarin Form application using following c
 
  Shared Code -
  
+```c#
 <?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
@@ -19,6 +20,7 @@ You can integrate video player in you Xamarin Form application using following c
     </xamarians:VideoPlayer>
 
 </ContentPage>
+'''
 
 Android - in MainActivity file write below code -
 ## Xamarians.MediaPlayer.Droid.VideoPlayerRenderer.Init();

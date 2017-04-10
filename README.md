@@ -31,3 +31,9 @@ iOS - in AppDelegate file write below code -
 ```c#
 Xamarians.MediaPlayer.iOS.VideoPlayerRenderer.Init();
 ```
+Also add following lines in info.plist to allow app to open url over http.
+<key>NSAppTransportSecurity</key>
+<dict>
+<key>NSAllowsArbitraryLoads</key>
+<true/>
+</dict>

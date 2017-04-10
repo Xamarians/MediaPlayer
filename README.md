@@ -7,6 +7,7 @@ First install package from nuget using following command -
 You can integrate video player in you Xamarin Form application using following code:
 
  Shared Code -
+ 
 <?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"

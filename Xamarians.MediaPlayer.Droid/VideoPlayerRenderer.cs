@@ -36,12 +36,12 @@ namespace Xamarians.MediaPlayer.Droid
 
             // Create Video View
             InitVideoView();
+          
+            // Start the MediaController
+            InitMediaController();
 
             // Show progressbar
             InitProgressBar();
-
-            // Start the MediaController
-            InitMediaController();
 
             SetSource();
         }
@@ -102,6 +102,7 @@ namespace Xamarians.MediaPlayer.Droid
             }
             catch (Java.Lang.Exception e)
             {
+                System.Diagnostics.Debug.WriteLine(e);
                 Element.OnError(e.Message);
             }
         }
@@ -179,25 +180,6 @@ namespace Xamarians.MediaPlayer.Droid
             Element?.OnError(e.What.ToString());
         }
 
-        void INativePlayer.Play()
-        {
-            throw new NotImplementedException();
-        }
-
-        void INativePlayer.Pause()
-        {
-            throw new NotImplementedException();
-        }
-
-        void INativePlayer.Stop()
-        {
-            throw new NotImplementedException();
-        }
-
-        void INativePlayer.Seek(int seconds)
-        {
-            throw new NotImplementedException();
-        }
 
         #endregion
 

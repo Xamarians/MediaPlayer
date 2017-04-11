@@ -2,7 +2,7 @@
 <package >
   <metadata>
     <id>$id$</id>
-    <version>0.0.2</version>
+    <version>1.0.0</version>
     <title>Xamarians - MediaPlayer</title>
     <authors>Xamarians</authors>
     <owners>Xamarians</owners>
@@ -11,7 +11,7 @@
     <!-- <iconUrl>http://ICON_URL_HERE_OR_DELETE_THIS_LINE</iconUrl> -->
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <description>Cross Platform Media Player to play videos in Xamarin.Forms. Supports android and iOS platforms.</description>
-    <releaseNotes>Updated license agreement.</releaseNotes>
+    <releaseNotes>fixed iOS linking issue and crashes.</releaseNotes>
     <copyright>Copyright 2017</copyright>
     <tags>Video VideoPlayer Media MediaPlayer</tags>
   </metadata>

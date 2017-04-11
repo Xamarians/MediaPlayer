@@ -1,7 +1,8 @@
 ﻿using System;
-using System.Windows.Input;
 using Xamarin.Forms;
+using Xamarin.Forms.Internals;
 
+[assembly: Preserve(AllMembers = true)]
 namespace Xamarians.MediaPlayer
 {
     public class VideoPlayer : View

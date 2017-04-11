@@ -27,13 +27,12 @@ namespace Xamarians.MediaPlayer.iOS
                 return;
 
             // Set Native Control
-            _playerController = new AVPlayerViewController() { View = { Frame = Frame } };
+            _playerController = new AVPlayerViewController();
+            _playerController.View.Frame = this.Frame;
             _playerController.ShowsPlaybackControls = true;
-            _playerController.View.Frame = Bounds;
-            SetNativeControl(_playerController.View);
-            SetNativeControl(this);
 
-            BackgroundColor = UIColor.Black;
+            SetNativeControl(_playerController.View);
+            Element.SetNativeContext(this);
             SetSource();
         }
 
@@ -58,29 +57,33 @@ namespace Xamarians.MediaPlayer.iOS
                 _prepared = false;
                 if (_player != null)
                 {
-                    //_player.RemoveObserver(this, (Foundation.NSString)"status");
-                    //_player.RemoveObserver(this, (Foundation.NSString)"error");
                     _player.Dispose();
                     _player = null;
                 }
 
-                _player = new AVPlayer(Foundation.NSUrl.FromString(Element.Source));
-                if (_player.Error != null)
-                {
-                    Element.OnError(_player?.Error?.LocalizedDescription);
-                    return;
-                }
+                AVPlayerItem playerItem = null;
+                if (Element.Source.StartsWith("http://") || Element.Source.StartsWith("https://"))
+                    playerItem = new AVPlayerItem(AVAsset.FromUrl(NSUrl.FromString(Element.Source)));
+                else
+                    playerItem = new AVPlayerItem(NSUrl.FromFilename(Element.Source));
+
+                NSNotificationCenter.DefaultCenter.AddObserver(AVPlayerItem.DidPlayToEndTimeNotification, DidVideoFinishPlaying, playerItem);
+                NSNotificationCenter.DefaultCenter.AddObserver(AVPlayerItem.ItemFailedToPlayToEndTimeNotification, DidVideoErrorOcurred, playerItem);
+                NSNotificationCenter.DefaultCenter.AddObserver(AVPlayerItem.NewErrorLogEntryNotification, DidVideoErrorOcurred, playerItem);
+                //NSNotificationCenter.DefaultCenter.AddObserver(AVPlayerItem.PlaybackStalledNotification, DidVideoPrepared, playerItem);
+
+                _player = new AVPlayer(playerItem);
                 _player.ActionAtItemEnd = AVPlayerActionAtItemEnd.None;
-
-                //_player.AddObserver(this, (Foundation.NSString)"status", Foundation.NSKeyValueObservingOptions.Initial | Foundation.NSKeyValueObservingOptions.New, IntPtr.Zero);
-                //_player.AddObserver(this, (Foundation.NSString)"error", Foundation.NSKeyValueObservingOptions.Initial | Foundation.NSKeyValueObservingOptions.New, IntPtr.Zero);
-
                 _playerController.Player = _player;
-                if (_playerController.Player?.Error != null)
+                _prepared = true;
+
+                if (Element.AutoPlay)
+                    _player.Play();
+
+                if (_player.Error != null)
                 {
                     Element.OnError(_playerController?.Player?.Error?.LocalizedDescription);
                 }
-
             }
             catch (Exception e)
             {
@@ -136,31 +139,34 @@ namespace Xamarians.MediaPlayer.iOS
 
         #region Events
 
-
-        public override void ObserveValue(NSString keyPath, NSObject ofObject, NSDictionary change, IntPtr context)
+        private void DidVideoFinishPlaying(NSNotification obj)
         {
-            if (Equals(ofObject, _player))
-            {
-                if (keyPath.Equals((Foundation.NSString)"status"))
-                {
-                    if (_player.Status == AVPlayerStatus.ReadyToPlay)
-                    {
-                        _prepared = true;
-                        Element.OnPrepare();
-                        if (Element.AutoPlay)
-                        {
-                            Play();
-                        }
-                    }
-                }
-                else if (keyPath.Equals((Foundation.NSString)"error") && _player.Error != null)
-                {
-                    System.Diagnostics.Debug.WriteLine("Error");
-
-                    Element.OnError(_player.Error?.LocalizedDescription ?? "Error loading player");
-                }
-            }
+            Element.OnCompletion();
         }
+
+        private void DidVideoErrorOcurred(NSNotification obj)
+        {
+            Element.OnError(_player.Error?.Description ?? "Unable to play video.");
+        }
+
+        //private void DidVideoPrepared(NSNotification obj)
+        //{
+        //    try
+        //    {
+        //        if (_player.Status == AVPlayerStatus.ReadyToPlay)
+        //        {
+        //            Element.OnPrepare();
+        //            if (Element.AutoPlay)
+        //            {
+        //                Play();
+        //            }
+        //        }
+        //    }
+        //    catch
+        //    {
+
+        //    }
+        //}
 
 
         #endregion

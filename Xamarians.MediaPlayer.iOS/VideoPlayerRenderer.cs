@@ -111,6 +111,16 @@ namespace Xamarians.MediaPlayer.iOS
             }
         }
 
+        public bool IsNativeControlsVisible
+        {
+            get
+            {
+                if (_playerController == null)
+                    return false;
+                return _playerController.ShowsPlaybackControls ? true : false;
+            }
+        }
+
         public void Play()
         {
             if (!_prepared) return;
@@ -133,6 +143,11 @@ namespace Xamarians.MediaPlayer.iOS
         {
             if (!_prepared) return;
             _player.Seek(CoreMedia.CMTime.FromSeconds(seconds, 0));
+        }
+
+        public void SetScreen(bool isPortrait)
+        {
+            //AVPlayerViewController provide by default this feature
         }
 
         #endregion

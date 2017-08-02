@@ -3,6 +3,9 @@ using System.ComponentModel;
 using Android.Media;
 using Android.Widget;
 using Xamarin.Forms.Platform.Android;
+using Android.App;
+using Android.Views;
+using Android.Content.PM;
 
 [assembly: Xamarin.Forms.ExportRenderer(typeof(Xamarians.MediaPlayer.VideoPlayer), typeof(Xamarians.MediaPlayer.Droid.VideoPlayerRenderer))]
 namespace Xamarians.MediaPlayer.Droid
@@ -12,10 +15,14 @@ namespace Xamarians.MediaPlayer.Droid
     {
         VideoView _videoView;
         ProgressBar progressBar;
+        MediaController mediaController;
+        Button fullScreenBtn;
         bool _prepared;
+        static Activity _context;
 
-        public static void Init()
+        public static void Init( Activity context)
         {
+            _context = context;
         }
 
         protected override void OnElementChanged(ElementChangedEventArgs<VideoPlayer> e)
@@ -40,11 +47,13 @@ namespace Xamarians.MediaPlayer.Droid
             // Start the MediaController
             InitMediaController();
 
+            InitFullScreenButton();
             // Show progressbar
             InitProgressBar();
-
             SetSource();
         }
+
+        
 
         protected override void OnElementPropertyChanged(object sender, PropertyChangedEventArgs e)
         {
@@ -71,6 +80,12 @@ namespace Xamarians.MediaPlayer.Droid
             Control.AddView(_videoView);
         }
 
+        private void InitMediaController()
+        {
+            mediaController = new MediaController(Context, false);
+            mediaController.SetAnchorView(_videoView);
+            _videoView.SetMediaController(mediaController);
+        }
         private void InitProgressBar()
         {
             progressBar = new ProgressBar(Context);
@@ -82,11 +97,49 @@ namespace Xamarians.MediaPlayer.Droid
 
         }
 
-        private void InitMediaController()
+        public void SetScreen(bool isPortrait)
         {
-            MediaController mediacontroller = new MediaController(Context, false);
-            mediacontroller.SetAnchorView(_videoView);
-            _videoView.SetMediaController(mediacontroller);
+            if (_context == null)
+                return;
+            _context.Window.AddFlags(WindowManagerFlags.Fullscreen);
+
+            if (isPortrait)
+            {
+                _context.RequestedOrientation = ScreenOrientation.Landscape;
+            }
+            else
+                _context.RequestedOrientation = ScreenOrientation.Portrait;
+        }
+
+
+        private void InitFullScreenButton()
+        {
+            //mediacontroller.Visibility;
+
+            //fullScreenBtn = new Button(Context) { Text = "Full"};
+            //fullScreenBtn.Click += FullScreenBtn_Click;
+            ////fullScreenBtn.Visibility = Android.Views.ViewStates.Invisible;
+            //var lparams = new RelativeLayout.LayoutParams(,);
+            //lparams.AddRule(LayoutRules.AlignParentBottom);
+            //Control.AddView(fullScreenBtn, lparams);
+
+        }
+
+        bool isPortrait = true;
+        private void FullScreenBtn_Click(object sender, EventArgs e)
+        {
+            if (_context == null)
+                return;
+            _context.Window.AddFlags(WindowManagerFlags.Fullscreen);
+
+            if (isPortrait)
+            {
+                _context.RequestedOrientation = ScreenOrientation.Landscape;
+            }
+            else
+                _context.RequestedOrientation = ScreenOrientation.Portrait;
+
+            isPortrait = !isPortrait;
         }
 
         private void SetSource()
@@ -126,6 +179,17 @@ namespace Xamarians.MediaPlayer.Droid
                 return _prepared ? _videoView.CurrentPosition : 0;
             }
         }
+
+        public bool IsNativeControlsVisible
+        {
+            get
+            {
+                if (mediaController == null)
+                    return false;
+                return mediaController.IsShown;
+            }
+        }
+
 
         public void Play()
         {
@@ -180,6 +244,7 @@ namespace Xamarians.MediaPlayer.Droid
             Element?.OnError(e.What.ToString());
         }
 
+      
 
         #endregion
 

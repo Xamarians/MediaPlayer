@@ -15,7 +15,7 @@ namespace VideoPlayerDemo.Droid
             base.OnCreate(bundle);
 
             global::Xamarin.Forms.Forms.Init(this, bundle);
-            Xamarians.MediaPlayer.Droid.VideoPlayerRenderer.Init();
+            Xamarians.MediaPlayer.Droid.VideoPlayerRenderer.Init(this);
             LoadApplication(new App());
         }
     }

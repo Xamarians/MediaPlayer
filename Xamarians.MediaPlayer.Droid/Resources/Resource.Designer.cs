@@ -2148,52 +2148,58 @@ namespace Xamarians.MediaPlayer.Droid
 			public static int ic_tv_light = 2130837648;
 			
 			// aapt resource value: 0x7f020091
-			public static int mr_dialog_material_background_dark = 2130837649;
+			public static int landscape_mode = 2130837649;
 			
 			// aapt resource value: 0x7f020092
-			public static int mr_dialog_material_background_light = 2130837650;
+			public static int mr_dialog_material_background_dark = 2130837650;
 			
 			// aapt resource value: 0x7f020093
-			public static int mr_ic_audiotrack_light = 2130837651;
+			public static int mr_dialog_material_background_light = 2130837651;
 			
 			// aapt resource value: 0x7f020094
-			public static int mr_ic_cast_dark = 2130837652;
+			public static int mr_ic_audiotrack_light = 2130837652;
 			
 			// aapt resource value: 0x7f020095
-			public static int mr_ic_cast_light = 2130837653;
+			public static int mr_ic_cast_dark = 2130837653;
 			
 			// aapt resource value: 0x7f020096
-			public static int mr_ic_close_dark = 2130837654;
+			public static int mr_ic_cast_light = 2130837654;
 			
 			// aapt resource value: 0x7f020097
-			public static int mr_ic_close_light = 2130837655;
+			public static int mr_ic_close_dark = 2130837655;
 			
 			// aapt resource value: 0x7f020098
-			public static int mr_ic_media_route_connecting_mono_dark = 2130837656;
+			public static int mr_ic_close_light = 2130837656;
 			
 			// aapt resource value: 0x7f020099
-			public static int mr_ic_media_route_connecting_mono_light = 2130837657;
+			public static int mr_ic_media_route_connecting_mono_dark = 2130837657;
 			
 			// aapt resource value: 0x7f02009a
-			public static int mr_ic_media_route_mono_dark = 2130837658;
+			public static int mr_ic_media_route_connecting_mono_light = 2130837658;
 			
 			// aapt resource value: 0x7f02009b
-			public static int mr_ic_media_route_mono_light = 2130837659;
+			public static int mr_ic_media_route_mono_dark = 2130837659;
 			
 			// aapt resource value: 0x7f02009c
-			public static int mr_ic_pause_dark = 2130837660;
+			public static int mr_ic_media_route_mono_light = 2130837660;
 			
 			// aapt resource value: 0x7f02009d
-			public static int mr_ic_pause_light = 2130837661;
+			public static int mr_ic_pause_dark = 2130837661;
 			
 			// aapt resource value: 0x7f02009e
-			public static int mr_ic_play_dark = 2130837662;
+			public static int mr_ic_pause_light = 2130837662;
 			
 			// aapt resource value: 0x7f02009f
-			public static int mr_ic_play_light = 2130837663;
+			public static int mr_ic_play_dark = 2130837663;
 			
 			// aapt resource value: 0x7f0200a0
-			public static int notification_template_icon_bg = 2130837664;
+			public static int mr_ic_play_light = 2130837664;
+			
+			// aapt resource value: 0x7f0200a2
+			public static int notification_template_icon_bg = 2130837666;
+			
+			// aapt resource value: 0x7f0200a1
+			public static int portrait_mode = 2130837665;
 			
 			static Drawable()
 			{

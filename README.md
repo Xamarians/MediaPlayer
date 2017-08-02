@@ -24,7 +24,7 @@ You can integrate video player in you Xamarin Form application using following c
 
 Android - in MainActivity file write below code -
 ```c#
-Xamarians.MediaPlayer.Droid.VideoPlayerRenderer.Init();
+Xamarians.MediaPlayer.Droid.VideoPlayerRenderer.Init(this);
 ```
 
 iOS - in AppDelegate file write below code -

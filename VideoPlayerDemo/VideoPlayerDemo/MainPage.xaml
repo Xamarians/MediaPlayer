@@ -5,8 +5,7 @@
              xmlns:xamarians="clr-namespace:Xamarians.MediaPlayer;assembly=Xamarians.MediaPlayer"
              x:Class="VideoPlayerDemo.MainPage">
 
-    <xamarians:VideoPlayer AutoPlay="True" Source="http://techslides.com/demos/sample-videos/small.mp4" Error="VideoPlayer_Error" 
-                           Prepared="VideoPlayer_Prepared" Completed="VideoPlayer_Completed">
+    <xamarians:VideoPlayer AutoPlay="True" Source="http://techslides.com/demos/sample-videos/small.mp4" >
 
     </xamarians:VideoPlayer>
 

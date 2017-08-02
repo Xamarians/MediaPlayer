@@ -8,5 +8,8 @@
         void Pause();
         void Stop();
         void Seek(int seconds);
+        void SetScreen(bool isPortrait);
+        bool IsNativeControlsVisible { get; }
+
     }
 }

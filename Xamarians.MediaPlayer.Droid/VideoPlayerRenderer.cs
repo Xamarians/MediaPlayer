@@ -1,11 +1,8 @@
-﻿using System;
-using System.ComponentModel;
+﻿using System.ComponentModel;
 using Android.Media;
 using Android.Widget;
 using Xamarin.Forms.Platform.Android;
 using Android.App;
-using Android.Views;
-using Android.Content.PM;
 
 [assembly: Xamarin.Forms.ExportRenderer(typeof(Xamarians.MediaPlayer.VideoPlayer), typeof(Xamarians.MediaPlayer.Droid.VideoPlayerRenderer))]
 namespace Xamarians.MediaPlayer.Droid
@@ -20,7 +17,7 @@ namespace Xamarians.MediaPlayer.Droid
         bool _prepared;
         static Activity _context;
 
-        public static void Init( Activity context)
+        public static void Init(Activity context)
         {
             _context = context;
         }
@@ -43,17 +40,15 @@ namespace Xamarians.MediaPlayer.Droid
 
             // Create Video View
             InitVideoView();
-          
+
             // Start the MediaController
             InitMediaController();
 
-            InitFullScreenButton();
             // Show progressbar
             InitProgressBar();
             SetSource();
         }
 
-        
 
         protected override void OnElementPropertyChanged(object sender, PropertyChangedEventArgs e)
         {
@@ -94,53 +89,40 @@ namespace Xamarians.MediaPlayer.Droid
             var lparams = new RelativeLayout.LayoutParams(100, 100);
             lparams.AddRule(LayoutRules.CenterInParent);
             Control.AddView(progressBar, lparams);
-
         }
 
         public void SetScreen(bool isPortrait)
         {
             if (_context == null)
                 return;
-            _context.Window.AddFlags(WindowManagerFlags.Fullscreen);
+           // _context.Window.AddFlags(WindowManagerFlags.Fullscreen);
 
             if (isPortrait)
-            {
-                _context.RequestedOrientation = ScreenOrientation.Landscape;
-            }
+                FullScreen();
             else
-                _context.RequestedOrientation = ScreenOrientation.Portrait;
+                ExitFullScreen();
         }
 
-
-        private void InitFullScreenButton()
+        public void FullScreen()
         {
-            //mediacontroller.Visibility;
+            _context.RequestedOrientation = Android.Content.PM.ScreenOrientation.Landscape;
+            var window = (Context as Activity).Window;
 
-            //fullScreenBtn = new Button(Context) { Text = "Full"};
-            //fullScreenBtn.Click += FullScreenBtn_Click;
-            ////fullScreenBtn.Visibility = Android.Views.ViewStates.Invisible;
-            //var lparams = new RelativeLayout.LayoutParams(,);
-            //lparams.AddRule(LayoutRules.AlignParentBottom);
-            //Control.AddView(fullScreenBtn, lparams);
-
+            window.DecorView.SystemUiVisibility =
+              (Android.Views.StatusBarVisibility)Android.Views.SystemUiFlags.LayoutStable
+              | (Android.Views.StatusBarVisibility)Android.Views.SystemUiFlags.LayoutFullscreen
+              | (Android.Views.StatusBarVisibility)Android.Views.SystemUiFlags.Fullscreen
+              | (Android.Views.StatusBarVisibility)Android.Views.SystemUiFlags.ImmersiveSticky
+              ;
         }
 
-        bool isPortrait = true;
-        private void FullScreenBtn_Click(object sender, EventArgs e)
+        public void ExitFullScreen()
         {
-            if (_context == null)
-                return;
-            _context.Window.AddFlags(WindowManagerFlags.Fullscreen);
-
-            if (isPortrait)
-            {
-                _context.RequestedOrientation = ScreenOrientation.Landscape;
-            }
-            else
-                _context.RequestedOrientation = ScreenOrientation.Portrait;
-
-            isPortrait = !isPortrait;
+            _context.RequestedOrientation = Android.Content.PM.ScreenOrientation.Portrait;
+            var window = (Context as Activity).Window;
+            window.DecorView.SystemUiVisibility = (Android.Views.StatusBarVisibility)Android.Views.SystemUiFlags.Visible;
         }
+
 
         private void SetSource()
         {
@@ -244,7 +226,15 @@ namespace Xamarians.MediaPlayer.Droid
             Element?.OnError(e.What.ToString());
         }
 
-      
+        public void HidePlayerController(bool isHide = true)
+        {
+            if (mediaController != null)
+            {
+                mediaController.Hide();
+            }
+        }
+
+
 
         #endregion
 

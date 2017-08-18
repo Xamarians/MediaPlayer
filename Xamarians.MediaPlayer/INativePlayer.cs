@@ -10,6 +10,6 @@
         void Seek(int seconds);
         void SetScreen(bool isPortrait);
         bool IsNativeControlsVisible { get; }
-
+        void HidePlayerController(bool isHide=true);
     }
 }

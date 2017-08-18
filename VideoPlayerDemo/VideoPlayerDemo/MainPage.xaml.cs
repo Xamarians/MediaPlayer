@@ -8,6 +8,12 @@ namespace VideoPlayerDemo
         public MainPage()
         {
             InitializeComponent();
+            scrollview.Scrolled += Scrollview_Scrolled;
+        }
+
+        private void Scrollview_Scrolled(object sender, ScrolledEventArgs e)
+        {
+            videoPlayer.HidePlayerController();
         }
 
         private async void VideoPlayer_Error(object sender, Xamarians.MediaPlayer.PlayerErrorEventArgs e)

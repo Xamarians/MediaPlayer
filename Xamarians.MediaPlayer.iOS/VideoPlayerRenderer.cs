@@ -111,6 +111,12 @@ namespace Xamarians.MediaPlayer.iOS
             }
         }
 
+
+        public void HidePlayerController(bool isHide)
+        {
+            
+        }
+
         public bool IsNativeControlsVisible
         {
             get
@@ -147,7 +153,23 @@ namespace Xamarians.MediaPlayer.iOS
 
         public void SetScreen(bool isPortrait)
         {
+
             //AVPlayerViewController provide by default this feature
+        }
+
+        public void FullScreen()
+        {
+            if (!_prepared) return;
+            //_player.Frame = NativeView.Frame;
+            //NativeView.Layer.AddSublayer(_player);
+        }
+
+        public void ExitFullScreen()
+        {
+            if (!_prepared) return;
+            //_player.Frame = NativeView.Frame;
+            //NativeView.Layer.AddSublayer(_player);
+
         }
 
         #endregion

@@ -52,6 +52,7 @@ namespace Xamarians.MediaPlayer
             {
                 new RowDefinition { Height=50},
                 new RowDefinition { Height=new GridLength(1,GridUnitType.Star)},
+                new RowDefinition { Height=new GridLength(1,GridUnitType.Auto)},
             };
 
             if (Device.RuntimePlatform == Device.Android)
@@ -74,14 +75,22 @@ namespace Xamarians.MediaPlayer
 
                 Device.StartTimer(TimeSpan.FromMilliseconds(100), () =>
                 {
-                    imgFullScreen.IsVisible = _nativePlayer.IsNativeControlsVisible;
+                    if (_nativePlayer != null)
+                        imgFullScreen.IsVisible = _nativePlayer.IsNativeControlsVisible;
                     return true;
                 });
                 Children.Add(imgFullScreen, 0, 0);
             }
+
         }
 
         #region Methods
+
+        public void HidePlayerController()
+        {
+            _nativePlayer?.HidePlayerController();
+        }
+
 
         public void Pause()
         {

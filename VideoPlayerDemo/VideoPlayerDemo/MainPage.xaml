@@ -5,8 +5,44 @@
              xmlns:xamarians="clr-namespace:Xamarians.MediaPlayer;assembly=Xamarians.MediaPlayer"
              x:Class="VideoPlayerDemo.MainPage">
 
-    <xamarians:VideoPlayer AutoPlay="True" Source="http://techslides.com/demos/sample-videos/small.mp4" >
-
-    </xamarians:VideoPlayer>
+    <ScrollView x:Name="scrollview">
+        <StackLayout>
+            <xamarians:VideoPlayer x:Name="videoPlayer" HeightRequest="300" VerticalOptions="FillAndExpand" AutoPlay="True" Source="http://techslides.com/demos/sample-videos/small.mp4" />
+            <Label Text=" test"></Label>
+            <Label Text=" test"></Label>
+            <Label Text=" test"></Label>
+            <Label Text=" test"></Label>
+            <Label Text=" test"></Label>
+            <Label Text=" test"></Label>
+            <Label Text=" test"></Label>
+            <Label Text=" test"></Label>
+            <Label Text=" test"></Label>
+            <Label Text=" test"></Label>
+            <Label Text=" test"></Label>
+            <Label Text=" test"></Label>
+            <Label Text=" test"></Label>
+            <Label Text=" test"></Label>
+            <Label Text=" test"></Label>
+            <Label Text=" test"></Label>
+            <Label Text=" test"></Label>
+            <Label Text=" test"></Label>
+            <Label Text=" test"></Label>
+            <Label Text=" test"></Label>
+            <Label Text=" test"></Label>
+            <Label Text=" test"></Label>
+            <Label Text=" test"></Label>
+            <Label Text=" test"></Label>
+            <Label Text=" test"></Label>
+            <Label Text=" test"></Label>
+        </StackLayout>
+    </ScrollView>
+    <!--<ScrollView  HeightRequest="200">
+        <xamarians:VideoPlayer x:Name="player"  HeightRequest="300" VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand"  AutoPlay="True" Source="http://techslides.com/demos/sample-videos/small.mp4" />
+        <Label Text=" test"></Label>
+            <Label Text=" test"></Label>
+            <Label Text=" test"></Label>
+            <Label Text=" test"></Label>
+            <Label Text=" test"></Label>
+        </ScrollView>-->
 
 </ContentPage>

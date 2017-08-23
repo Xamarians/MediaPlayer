@@ -11,7 +11,7 @@ namespace VideoPlayerDemo
             var btn = new Button { Text = "Click" };
             btn.Clicked += (s, e) =>
             {
-                MainPage = new VideoPlayerDemo.MainPage();
+                MainPage = new MainPage();
             };
             var testPage = new ContentPage
             {
@@ -19,7 +19,7 @@ namespace VideoPlayerDemo
             };
 
             //  MainPage = testPage; // new VideoPlayerDemo.MainPage();
-            MainPage = new VideoPlayerDemo.MainPage();
+            MainPage = new MainPage();
         }
 
         protected override void OnStart()

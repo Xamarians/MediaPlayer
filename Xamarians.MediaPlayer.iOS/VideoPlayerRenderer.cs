@@ -95,6 +95,15 @@ namespace Xamarians.MediaPlayer.iOS
 
         #region INativePlayer
 
+        //bool isFullScreen = false;
+        //public bool IsFullScreen
+        //{
+        //    get
+        //    {
+        //        return isFullScreen;
+        //    }
+        //}
+
         public int Duration
         {
             get
@@ -111,19 +120,18 @@ namespace Xamarians.MediaPlayer.iOS
             }
         }
 
-
-        public void HidePlayerController(bool isHide)
+        public void DisplaySeekbar(bool value)
         {
-            
+            _playerController.ShowsPlaybackControls = value;
         }
 
-        public bool IsNativeControlsVisible
+        public bool IsSeekbarVisible
         {
             get
             {
                 if (_playerController == null)
                     return false;
-                return _playerController.ShowsPlaybackControls ? true : false;
+                return _playerController.ShowsPlaybackControls;
             }
         }
 
@@ -157,20 +165,20 @@ namespace Xamarians.MediaPlayer.iOS
             //AVPlayerViewController provide by default this feature
         }
 
-        public void FullScreen()
-        {
-            if (!_prepared) return;
-            //_player.Frame = NativeView.Frame;
-            //NativeView.Layer.AddSublayer(_player);
-        }
+        //public void FullScreen()
+        //{
+        //    if (!_prepared) return;
+        //    //_player.Frame = NativeView.Frame;
+        //    //NativeView.Layer.AddSublayer(_player);
+        //}
 
-        public void ExitFullScreen()
-        {
-            if (!_prepared) return;
-            //_player.Frame = NativeView.Frame;
-            //NativeView.Layer.AddSublayer(_player);
+        //public void ExitFullScreen()
+        //{
+        //    if (!_prepared) return;
+        //    //_player.Frame = NativeView.Frame;
+        //    //NativeView.Layer.AddSublayer(_player);
 
-        }
+        //}
 
         #endregion
 

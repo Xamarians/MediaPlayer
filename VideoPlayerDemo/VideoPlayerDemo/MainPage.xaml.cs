@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Threading.Tasks;
 using Xamarin.Forms;
 
 namespace VideoPlayerDemo
@@ -8,27 +9,36 @@ namespace VideoPlayerDemo
         public MainPage()
         {
             InitializeComponent();
-            scrollview.Scrolled += Scrollview_Scrolled;
+            //scrollview.Scrolled += Scrollview_Scrolled;
         }
 
-        private void Scrollview_Scrolled(object sender, ScrolledEventArgs e)
-        {
-            videoPlayer.HidePlayerController();
-        }
+        //private void Scrollview_Scrolled(object sender, ScrolledEventArgs e)
+        //{
+        //    videoPlayer.HideSeekbar();
+        //}
+
+        //protected async override void OnAppearing()
+        //{
+        //    base.OnAppearing();
+        //    await Task.Delay(4000);
+        //    videoPlayer.FullScreen(true);
+        //    //await Task.Delay(4000);
+        //    //videoPlayer.ExitFullScreen();
+        //}
 
         private async void VideoPlayer_Error(object sender, Xamarians.MediaPlayer.PlayerErrorEventArgs e)
         {
-            await DisplayAlert("Error", e.Message, "OK");
+            //await DisplayAlert("Error", e.Message, "OK");
         }
 
         private async void VideoPlayer_Prepared(object sender, EventArgs e)
         {
-            await DisplayAlert("", "Prepared", "OK");
+           // await DisplayAlert("", "Prepared", "OK");
         }
 
         private async void VideoPlayer_Completed(object sender, EventArgs e)
         {
-            await DisplayAlert("", "Completed", "OK");
+           // await DisplayAlert("", "Completed", "OK");
 
         }
     }

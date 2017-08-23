@@ -2,14 +2,16 @@
 {
     internal interface INativePlayer
     {
+         bool IsSeekbarVisible { get; }
+        //bool IsFullScreen { get; }
         int Duration { get; }
         int CurrentPosition { get; }
         void Play();
         void Pause();
         void Stop();
         void Seek(int seconds);
-        void SetScreen(bool isPortrait);
-        bool IsNativeControlsVisible { get; }
-        void HidePlayerController(bool isHide=true);
+       // void FullScreen(bool resizeLayout = false);
+       // void ExitFullScreen();
+        void DisplaySeekbar(bool value);
     }
 }

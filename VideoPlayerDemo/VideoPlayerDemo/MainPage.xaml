@@ -5,9 +5,9 @@
              xmlns:xamarians="clr-namespace:Xamarians.MediaPlayer;assembly=Xamarians.MediaPlayer"
              x:Class="VideoPlayerDemo.MainPage">
 
-    <ScrollView x:Name="scrollview">
+    <ScrollView x:Name="scrollview" IsClippedToBounds="True">
         <StackLayout>
-            <xamarians:VideoPlayer x:Name="videoPlayer" HeightRequest="300" VerticalOptions="FillAndExpand" AutoPlay="True" Source="http://techslides.com/demos/sample-videos/small.mp4" />
+            <xamarians:VideoPlayer x:Name="videoPlayer" HeightRequest="300"  AutoPlay="True" Source="http://techslides.com/demos/sample-videos/small.mp4" />
             <Label Text=" test"></Label>
             <Label Text=" test"></Label>
             <Label Text=" test"></Label>

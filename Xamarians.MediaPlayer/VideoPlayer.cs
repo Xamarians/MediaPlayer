@@ -5,11 +5,13 @@ using Xamarin.Forms.Internals;
 [assembly: Preserve(AllMembers = true)]
 namespace Xamarians.MediaPlayer
 {
-    public class VideoPlayer : Grid
+    public class VideoPlayer : View
     {
-        INativePlayer _nativePlayer;
-        Image imgFullScreen;
-        bool isPortrait = false;
+        INativePlayer nativePlayer;
+        //Image imgFullScreen;
+        //const string FullScreenImageSource = "landscape_mode.png";
+        //const string ExitFullScreenImageSource = "portrait_mode.png";
+
         #region Properties
 
         public static readonly BindableProperty SourceProperty = BindableProperty.Create("Source", typeof(string), typeof(VideoPlayer), null);
@@ -26,15 +28,6 @@ namespace Xamarians.MediaPlayer
             set { SetValue(AutoPlayProperty, value); }
         }
 
-        public int Duration
-        {
-            get { return _nativePlayer == null ? 0 : _nativePlayer.Duration; }
-        }
-
-        public int CurrentPosition
-        {
-            get { return _nativePlayer == null ? 0 : _nativePlayer.CurrentPosition; }
-        }
 
         #endregion
 
@@ -48,77 +41,15 @@ namespace Xamarians.MediaPlayer
 
         public VideoPlayer()
         {
-            RowDefinitions = new RowDefinitionCollection
-            {
-                new RowDefinition { Height=50},
-                new RowDefinition { Height=new GridLength(1,GridUnitType.Star)},
-                new RowDefinition { Height=new GridLength(1,GridUnitType.Auto)},
-            };
-
-            if (Device.RuntimePlatform == Device.Android)
-            {
-                imgFullScreen = new Image()
-                {
-                    HeightRequest = 25,
-                    WidthRequest = 25,
-                    Margin = 5,
-                    IsVisible = false,
-                    HorizontalOptions = LayoutOptions.End,
-                    Source = "portrait_mode.png",
-                };
-                imgFullScreen.OnTapped(() =>
-                {
-                    isPortrait = !isPortrait;
-                    _nativePlayer.SetScreen(isPortrait);
-                    imgFullScreen.Source = isPortrait ? "landscape_mode.png" : "portrait_mode.png";
-                });
-
-                Device.StartTimer(TimeSpan.FromMilliseconds(100), () =>
-                {
-                    if (_nativePlayer != null)
-                        imgFullScreen.IsVisible = _nativePlayer.IsNativeControlsVisible;
-                    return true;
-                });
-                Children.Add(imgFullScreen, 0, 0);
-            }
 
         }
 
-        #region Methods
-
-        public void HidePlayerController()
-        {
-            _nativePlayer?.HidePlayerController();
-        }
-
-
-        public void Pause()
-        {
-            _nativePlayer?.Pause();
-        }
-
-        public void Play()
-        {
-            _nativePlayer?.Play();
-        }
-
-        public void Stop()
-        {
-            _nativePlayer?.Stop();
-        }
-
-        public void Seek(int seconds)
-        {
-            _nativePlayer?.Seek(seconds);
-        }
-
-        #endregion
 
         #region Internal Methods
 
         internal void SetNativeContext(INativePlayer player)
         {
-            _nativePlayer = player;
+            nativePlayer = player;
         }
 
         internal void OnError(string error)
@@ -135,6 +66,91 @@ namespace Xamarians.MediaPlayer
         {
             Prepared?.Invoke(this, EventArgs.Empty);
         }
+
+
+
+        #endregion
+
+
+        #region INativePlayer
+
+        //public bool IsFullScreen
+        //{
+        //    get
+        //    {
+        //        return nativePlayer?.IsFullScreen ?? false;
+        //    }
+        //}
+
+        public int Duration
+        {
+            get
+            {
+                return nativePlayer?.Duration ?? 0;
+            }
+        }
+
+        public int CurrentPosition
+        {
+            get
+            {
+                return nativePlayer?.CurrentPosition ?? 0;
+            }
+        }
+
+        public bool CanPlay
+        {
+            get
+            {
+                return nativePlayer != null;
+            }
+        }
+
+
+        public void Play()
+        {
+            nativePlayer?.Play();
+        }
+
+        public void Pause()
+        {
+            nativePlayer?.Pause();
+        }
+
+        public void Stop()
+        {
+            nativePlayer?.Stop();
+        }
+
+        public void Seek(int seconds)
+        {
+            nativePlayer?.Seek(seconds);
+        }
+
+
+        /// <summary>
+        /// Change screen orientation to Landscape and set video player in full screen mode.
+        /// </summary>
+        /// <param name="resizeLayout">set it True if you are using video player inside a scroo view</param>
+        //public void FullScreen(bool resizeLayout = false)
+        //{
+        //    if (nativePlayer == null)
+        //        return;
+        //    nativePlayer.FullScreen(resizeLayout);
+        //}
+
+        //public void ExitFullScreen()
+        //{
+        //    if (nativePlayer == null)
+        //        return;
+        //    nativePlayer.ExitFullScreen();
+        //}
+
+        //public void HideSeekbar()
+        //{
+        //    nativePlayer?.HideSeekbar();
+        //}
+
 
         #endregion
 

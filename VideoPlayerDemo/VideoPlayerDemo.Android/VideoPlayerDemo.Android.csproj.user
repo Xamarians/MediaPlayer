@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="14.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
-    <SelectedDevice> 4.7" Lollipop %285.1.1%29 XXHDPI Phone</SelectedDevice>
+    <SelectedDevice>PANASONIC Eluga_Mark_2</SelectedDevice>
     <DefaultDevice>VisualStudio_android-23_arm_phone</DefaultDevice>
   </PropertyGroup>
 </Project>

@@ -9,7 +9,12 @@ namespace VideoPlayerDemo
         public MainPage()
         {
             InitializeComponent();
-            //scrollview.Scrolled += Scrollview_Scrolled;
+            videoPlayer.FullScreenStatusChanged += VideoPlayer_FullScreenStatusChanged;
+        }
+
+        private void VideoPlayer_FullScreenStatusChanged(object sender, bool value)
+        {
+            NavigationPage.SetHasNavigationBar(this, !value);
         }
 
         //private void Scrollview_Scrolled(object sender, ScrolledEventArgs e)
@@ -33,12 +38,12 @@ namespace VideoPlayerDemo
 
         private async void VideoPlayer_Prepared(object sender, EventArgs e)
         {
-           // await DisplayAlert("", "Prepared", "OK");
+            // await DisplayAlert("", "Prepared", "OK");
         }
 
         private async void VideoPlayer_Completed(object sender, EventArgs e)
         {
-           // await DisplayAlert("", "Completed", "OK");
+            // await DisplayAlert("", "Completed", "OK");
 
         }
     }

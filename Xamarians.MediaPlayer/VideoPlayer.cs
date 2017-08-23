@@ -7,10 +7,8 @@ namespace Xamarians.MediaPlayer
 {
     public class VideoPlayer : View
     {
+        public event EventHandler<bool> FullScreenStatusChanged;
         INativePlayer nativePlayer;
-        //Image imgFullScreen;
-        //const string FullScreenImageSource = "landscape_mode.png";
-        //const string ExitFullScreenImageSource = "portrait_mode.png";
 
         #region Properties
 
@@ -50,6 +48,7 @@ namespace Xamarians.MediaPlayer
         internal void SetNativeContext(INativePlayer player)
         {
             nativePlayer = player;
+            nativePlayer.IsFullScreenStatusChanged += (s, e) => FullScreenStatusChanged?.Invoke(this, e);
         }
 
         internal void OnError(string error)
@@ -70,7 +69,6 @@ namespace Xamarians.MediaPlayer
 
 
         #endregion
-
 
         #region INativePlayer
 

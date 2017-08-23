@@ -1,17 +1,17 @@
-﻿namespace Xamarians.MediaPlayer
+﻿using System;
+
+namespace Xamarians.MediaPlayer
 {
     internal interface INativePlayer
     {
-         bool IsSeekbarVisible { get; }
-        //bool IsFullScreen { get; }
+        event EventHandler<bool> IsFullScreenStatusChanged;
+        bool IsSeekbarVisible { get; }
         int Duration { get; }
         int CurrentPosition { get; }
         void Play();
         void Pause();
         void Stop();
         void Seek(int seconds);
-       // void FullScreen(bool resizeLayout = false);
-       // void ExitFullScreen();
         void DisplaySeekbar(bool value);
     }
 }

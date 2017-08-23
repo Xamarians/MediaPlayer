@@ -5,6 +5,7 @@ using Android.Widget;
 using System.ComponentModel;
 using Xamarin.Forms.Platform.Android;
 using Android.Views;
+using System;
 
 [assembly: Xamarin.Forms.ExportRenderer(typeof(Xamarians.MediaPlayer.VideoPlayer), typeof(Xamarians.MediaPlayer.Droid.VideoPlayerRenderer))]
 namespace Xamarians.MediaPlayer.Droid
@@ -48,6 +49,7 @@ namespace Xamarians.MediaPlayer.Droid
         static double deviceWidth;
         static double deviceHeight;
         //System.Timers.Timer timer;
+        public event EventHandler<bool> IsFullScreenStatusChanged;
 
         public static void Init(Activity context)
         {
@@ -188,6 +190,8 @@ namespace Xamarians.MediaPlayer.Droid
         #region INativePlayer
 
         bool isFullScreen = false;
+
+
         private bool IsFullScreen
         {
             get
@@ -256,9 +260,9 @@ namespace Xamarians.MediaPlayer.Droid
             if (isFullScreen)
                 return;
 
-            var window = (_context as Activity).Window;
-            window.AddFlags(Android.Views.WindowManagerFlags.Fullscreen);
             _context.RequestedOrientation = Android.Content.PM.ScreenOrientation.Landscape;
+            var window = (_context as Activity).Window;
+            window.AddFlags(WindowManagerFlags.Fullscreen);
             imageView.SetImageResource(Resource.Drawable.landscape_mode);
             isFullScreen = true;
             if (resizeLayout)
@@ -273,6 +277,7 @@ namespace Xamarians.MediaPlayer.Droid
             {
                 playerHeight = 0;
             }
+            IsFullScreenStatusChanged?.Invoke(this, true);
         }
 
         private void ExitFullScreen()
@@ -283,12 +288,13 @@ namespace Xamarians.MediaPlayer.Droid
             imageView.SetImageResource(Resource.Drawable.portrait_mode);
             _context.RequestedOrientation = Android.Content.PM.ScreenOrientation.Portrait;
             var window = (_context as Activity).Window;
-            window.ClearFlags(Android.Views.WindowManagerFlags.Fullscreen);
+            window.ClearFlags(WindowManagerFlags.Fullscreen);
             isFullScreen = false;
             if (playerHeight > 0)
             {
                 Element.HeightRequest = playerHeight;
             }
+            IsFullScreenStatusChanged?.Invoke(this, false);
         }
 
         public void DisplaySeekbar(bool value)

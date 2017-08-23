@@ -15,6 +15,8 @@ namespace Xamarians.MediaPlayer.iOS
         AVPlayerViewController _playerController;
         bool _prepared;
 
+        public event EventHandler<bool> FullScreenStatusChanged;
+
         public static new void Init()
         {
 
@@ -94,15 +96,6 @@ namespace Xamarians.MediaPlayer.iOS
         #endregion
 
         #region INativePlayer
-
-        //bool isFullScreen = false;
-        //public bool IsFullScreen
-        //{
-        //    get
-        //    {
-        //        return isFullScreen;
-        //    }
-        //}
 
         public int Duration
         {
@@ -193,25 +186,6 @@ namespace Xamarians.MediaPlayer.iOS
         {
             Element.OnError(_player.Error?.Description ?? "Unable to play video.");
         }
-
-        //private void DidVideoPrepared(NSNotification obj)
-        //{
-        //    try
-        //    {
-        //        if (_player.Status == AVPlayerStatus.ReadyToPlay)
-        //        {
-        //            Element.OnPrepare();
-        //            if (Element.AutoPlay)
-        //            {
-        //                Play();
-        //            }
-        //        }
-        //    }
-        //    catch
-        //    {
-
-        //    }
-        //}
 
 
         #endregion

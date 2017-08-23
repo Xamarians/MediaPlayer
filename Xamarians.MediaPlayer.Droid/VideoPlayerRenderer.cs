@@ -49,7 +49,7 @@ namespace Xamarians.MediaPlayer.Droid
         static double deviceWidth;
         static double deviceHeight;
         //System.Timers.Timer timer;
-        public event EventHandler<bool> IsFullScreenStatusChanged;
+        public event EventHandler<bool> FullScreenStatusChanged;
 
         public static void Init(Activity context)
         {
@@ -277,7 +277,7 @@ namespace Xamarians.MediaPlayer.Droid
             {
                 playerHeight = 0;
             }
-            IsFullScreenStatusChanged?.Invoke(this, true);
+            FullScreenStatusChanged?.Invoke(this, true);
         }
 
         private void ExitFullScreen()
@@ -294,7 +294,7 @@ namespace Xamarians.MediaPlayer.Droid
             {
                 Element.HeightRequest = playerHeight;
             }
-            IsFullScreenStatusChanged?.Invoke(this, false);
+            FullScreenStatusChanged?.Invoke(this, false);
         }
 
         public void DisplaySeekbar(bool value)

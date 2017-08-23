@@ -48,7 +48,7 @@ namespace Xamarians.MediaPlayer
         internal void SetNativeContext(INativePlayer player)
         {
             nativePlayer = player;
-            nativePlayer.IsFullScreenStatusChanged += (s, e) => FullScreenStatusChanged?.Invoke(this, e);
+            nativePlayer.FullScreenStatusChanged += (s, e) => FullScreenStatusChanged?.Invoke(this, e);
         }
 
         internal void OnError(string error)

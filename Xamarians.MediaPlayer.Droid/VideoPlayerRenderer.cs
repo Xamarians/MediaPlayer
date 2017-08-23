@@ -1,18 +1,42 @@
 ﻿using Android.App;
+using Android.Content;
 using Android.Media;
 using Android.Widget;
 using System.ComponentModel;
 using Xamarin.Forms.Platform.Android;
+using Android.Views;
 
 [assembly: Xamarin.Forms.ExportRenderer(typeof(Xamarians.MediaPlayer.VideoPlayer), typeof(Xamarians.MediaPlayer.Droid.VideoPlayerRenderer))]
 namespace Xamarians.MediaPlayer.Droid
 {
 
+    class MyMediaController : MediaController
+    {
+        public event System.EventHandler<bool> VisibilityChange;
+        public MyMediaController(Context context, bool useFastForward)
+            : base(context, useFastForward)
+        {
+
+        }
+
+        public override void Show()
+        {
+            base.Show();
+            VisibilityChange?.Invoke(this, true);
+        }
+
+        public override void Hide()
+        {
+            base.Hide();
+            VisibilityChange?.Invoke(this, false);
+        }
+    }
+
     public class VideoPlayerRenderer : ViewRenderer<VideoPlayer, RelativeLayout>, INativePlayer
     {
         VideoView _videoView;
         ProgressBar progressBar;
-        MediaController mediaController;
+        MyMediaController mediaController;
         bool _prepared;
         static Activity _context;
         double playerHeight;
@@ -23,6 +47,7 @@ namespace Xamarians.MediaPlayer.Droid
 
         static double deviceWidth;
         static double deviceHeight;
+        //System.Timers.Timer timer;
 
         public static void Init(Activity context)
         {
@@ -60,7 +85,6 @@ namespace Xamarians.MediaPlayer.Droid
 
         }
 
-
         private void InitializeFullScreenCapability()
         {
             Xamarin.Forms.Element view = Element;
@@ -74,9 +98,9 @@ namespace Xamarians.MediaPlayer.Droid
                     break;
                 }
             }
-            imageView = new ImageView(_context);
-            imageView.SetImageResource(Resource.Drawable.landscape_mode);
-            var lv = new RelativeLayout.LayoutParams(75, 75);
+            imageView = new ImageView(_context) { };
+            imageView.SetImageResource(Resource.Drawable.portrait_mode);
+            var lv = new RelativeLayout.LayoutParams(60, 60);
             lv.SetMargins(0, 30, 30, 0);
             lv.AddRule(LayoutRules.AlignParentRight);
             imageView.LayoutParameters = lv;
@@ -120,9 +144,15 @@ namespace Xamarians.MediaPlayer.Droid
 
         private void InitMediaController()
         {
-            mediaController = new MediaController(Context, false);
+            mediaController = new MyMediaController(Context, false);
+            mediaController.VisibilityChange += MediaController_VisibilityChange;
             mediaController.SetAnchorView(_videoView);
             _videoView.SetMediaController(mediaController);
+        }
+
+        private void MediaController_VisibilityChange(object sender, bool value)
+        {
+            imageView.Visibility = value ? Android.Views.ViewStates.Visible : Android.Views.ViewStates.Invisible; ;
         }
 
         private void InitProgressBar()
@@ -229,7 +259,7 @@ namespace Xamarians.MediaPlayer.Droid
             var window = (_context as Activity).Window;
             window.AddFlags(Android.Views.WindowManagerFlags.Fullscreen);
             _context.RequestedOrientation = Android.Content.PM.ScreenOrientation.Landscape;
-            imageView.SetImageResource(Resource.Drawable.portrait_mode);
+            imageView.SetImageResource(Resource.Drawable.landscape_mode);
             isFullScreen = true;
             if (resizeLayout)
             {
@@ -250,13 +280,15 @@ namespace Xamarians.MediaPlayer.Droid
             if (!isFullScreen)
                 return;
 
-            imageView.SetImageResource(Resource.Drawable.landscape_mode);
+            imageView.SetImageResource(Resource.Drawable.portrait_mode);
             _context.RequestedOrientation = Android.Content.PM.ScreenOrientation.Portrait;
             var window = (_context as Activity).Window;
             window.ClearFlags(Android.Views.WindowManagerFlags.Fullscreen);
             isFullScreen = false;
             if (playerHeight > 0)
+            {
                 Element.HeightRequest = playerHeight;
+            }
         }
 
         public void DisplaySeekbar(bool value)
@@ -298,6 +330,23 @@ namespace Xamarians.MediaPlayer.Droid
         }
 
         #endregion
+
+        public override bool OnTouchEvent(MotionEvent e)
+        {
+            if (!IsFullScreen)
+            {
+                return base.OnTouchEvent(e);
+            }
+            if (e.Action == MotionEventActions.Down)
+            {
+                Parent.RequestDisallowInterceptTouchEvent(true);
+            }
+            if (e.Action == MotionEventActions.Up)
+            {
+                Parent.RequestDisallowInterceptTouchEvent(false);
+            }
+            return true;
+        }
 
     }
 }

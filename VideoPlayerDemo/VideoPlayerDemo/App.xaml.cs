@@ -19,7 +19,8 @@ namespace VideoPlayerDemo
             };
 
             //  MainPage = testPage; // new VideoPlayerDemo.MainPage();
-            MainPage = new NavigationPage(new MainPage());
+            //MainPage = new NavigationPage(new MainPage());
+            MainPage = new MainPage();
         }
 
         protected override void OnStart()

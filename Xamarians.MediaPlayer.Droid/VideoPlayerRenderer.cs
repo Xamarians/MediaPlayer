@@ -102,7 +102,8 @@ namespace Xamarians.MediaPlayer.Droid
             }
             imageView = new ImageView(_context) { };
             imageView.SetImageResource(Resource.Drawable.portrait_mode);
-            var lv = new RelativeLayout.LayoutParams(60, 60);
+            imageView.Visibility = ViewStates.Invisible;
+            var lv = new RelativeLayout.LayoutParams(40, 40);
             lv.SetMargins(0, 30, 30, 0);
             lv.AddRule(LayoutRules.AlignParentRight);
             imageView.LayoutParameters = lv;
@@ -147,14 +148,19 @@ namespace Xamarians.MediaPlayer.Droid
         private void InitMediaController()
         {
             mediaController = new MyMediaController(Context, false);
-            mediaController.VisibilityChange += MediaController_VisibilityChange;
+            mediaController.VisibilityChange += (s, value) =>
+            {
+                if (imageView == null)
+                    return;
+                imageView.Visibility = value ? ViewStates.Visible : ViewStates.Invisible;
+            };
             mediaController.SetAnchorView(_videoView);
             _videoView.SetMediaController(mediaController);
         }
 
         private void MediaController_VisibilityChange(object sender, bool value)
         {
-            imageView.Visibility = value ? Android.Views.ViewStates.Visible : Android.Views.ViewStates.Invisible; ;
+            imageView.Visibility = value ? ViewStates.Visible : ViewStates.Invisible; ;
         }
 
         private void InitProgressBar()
@@ -208,8 +214,6 @@ namespace Xamarians.MediaPlayer.Droid
             }
         }
 
-
-
         public int Duration
         {
             get
@@ -261,6 +265,9 @@ namespace Xamarians.MediaPlayer.Droid
                 return;
 
             _context.RequestedOrientation = Android.Content.PM.ScreenOrientation.Landscape;
+            _context.ActionBar?.Hide();
+            (_context as FormsAppCompatActivity)?.SupportActionBar?.Hide();
+
             var window = (_context as Activity).Window;
             window.AddFlags(WindowManagerFlags.Fullscreen);
             imageView.SetImageResource(Resource.Drawable.landscape_mode);
@@ -285,10 +292,14 @@ namespace Xamarians.MediaPlayer.Droid
             if (!isFullScreen)
                 return;
 
-            imageView.SetImageResource(Resource.Drawable.portrait_mode);
             _context.RequestedOrientation = Android.Content.PM.ScreenOrientation.Portrait;
+            _context.ActionBar?.Show();
+            (_context as FormsAppCompatActivity)?.SupportActionBar?.Show();
+
             var window = (_context as Activity).Window;
             window.ClearFlags(WindowManagerFlags.Fullscreen);
+            imageView.SetImageResource(Resource.Drawable.portrait_mode);
+
             isFullScreen = false;
             if (playerHeight > 0)
             {

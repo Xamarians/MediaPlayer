@@ -7,7 +7,7 @@ namespace Xamarians.MediaPlayer
 {
     public class VideoPlayer : View
     {
-        public event EventHandler<bool> FullScreenStatusChanged;
+        //public event EventHandler<bool> FullScreenStatusChanged;
         INativePlayer nativePlayer;
 
         #region Properties
@@ -48,7 +48,11 @@ namespace Xamarians.MediaPlayer
         internal void SetNativeContext(INativePlayer player)
         {
             nativePlayer = player;
-            nativePlayer.FullScreenStatusChanged += (s, e) => FullScreenStatusChanged?.Invoke(this, e);
+            nativePlayer.FullScreenStatusChanged += (s, value) =>
+            {
+                if (Navigation.NavigationStack.Count > 0)
+                    NavigationPage.SetHasNavigationBar(Navigation.NavigationStack[0], !value);
+            };
         }
 
         internal void OnError(string error)

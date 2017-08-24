@@ -152,26 +152,7 @@ namespace Xamarians.MediaPlayer.iOS
             _player.Seek(CoreMedia.CMTime.FromSeconds(seconds, 0));
         }
 
-        public void SetScreen(bool isPortrait)
-        {
-
-            //AVPlayerViewController provide by default this feature
-        }
-
-        //public void FullScreen()
-        //{
-        //    if (!_prepared) return;
-        //    //_player.Frame = NativeView.Frame;
-        //    //NativeView.Layer.AddSublayer(_player);
-        //}
-
-        //public void ExitFullScreen()
-        //{
-        //    if (!_prepared) return;
-        //    //_player.Frame = NativeView.Frame;
-        //    //NativeView.Layer.AddSublayer(_player);
-
-        //}
+       
 
         #endregion
 

@@ -32,7 +32,7 @@ namespace Xamarians.MediaPlayer.iOS
             _playerController = new AVPlayerViewController();
             _playerController.View.Frame = this.Frame;
             _playerController.ShowsPlaybackControls = true;
-
+			AVAudioSession.SharedInstance().SetCategory(AVAudioSessionCategory.Playback);
             SetNativeControl(_playerController.View);
             Element.SetNativeContext(this);
             SetSource();

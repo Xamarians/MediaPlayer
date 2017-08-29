@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8" ?>
+<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:local="clr-namespace:VideoPlayerDemo"
@@ -7,7 +7,7 @@
 
     <ScrollView x:Name="scrollview" IsClippedToBounds="True">
         <StackLayout>
-            <xamarians:VideoPlayer x:Name="videoPlayer" HeightRequest="300"  AutoPlay="True" Source="http://techslides.com/demos/sample-videos/small.mp4" />
+            <xamarians:VideoPlayer x:Name="videoPlayer" HeightRequest="300"  AutoPlay="True" Source="1131482142593576400bd.mp4"/>
             <Label Text=" test"></Label>
             <Label Text=" test"></Label>
             <Label Text=" test"></Label>

@@ -8,7 +8,7 @@ You can integrate video player in you Xamarin Form application using following c
 
  Shared Code -
  
-```
+```c#
 <?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
@@ -23,7 +23,7 @@ You can integrate video player in you Xamarin Form application using following c
 ```
 
 To play video in full screen ,you need to add these lines in MainPage - 
-```
+```c#
        videoPlayer.FullScreenStatusChanged += VideoPlayer_FullScreenStatusChanged;
         
         private void VideoPlayer_FullScreenStatusChanged(object sender, bool value)
@@ -33,16 +33,16 @@ To play video in full screen ,you need to add these lines in MainPage -
 ```
 
 Android - in MainActivity file write below code -
-```
+```c#
 Xamarians.MediaPlayer.Droid.VideoPlayerRenderer.Init(this);
 ```
 
 iOS - in AppDelegate file write below code -
-```
+```c#
 Xamarians.MediaPlayer.iOS.VideoPlayerRenderer.Init();
 ```
 Also add following lines in info.plist to allow app to open url over http.
-```
+```c#
 <key>NSAppTransportSecurity</key>
 <dict>
 <key>NSAllowsArbitraryLoads</key>

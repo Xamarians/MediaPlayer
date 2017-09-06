@@ -22,6 +22,16 @@ You can integrate video player in you Xamarin Form application using following c
 </ContentPage>
 ```
 
+To play video in full screen ,you need to add these lines in MainPage - 
+```c#
+       videoPlayer.FullScreenStatusChanged += VideoPlayer_FullScreenStatusChanged;
+        
+        private void VideoPlayer_FullScreenStatusChanged(object sender, bool value)
+        {
+            NavigationPage.SetHasNavigationBar(this, !value);
+        }
+```
+
 Android - in MainActivity file write below code -
 ```c#
 Xamarians.MediaPlayer.Droid.VideoPlayerRenderer.Init(this);
